@@ -49,24 +49,6 @@ chain = LLMChain(
     output_parser=output_parser
 )
 
-# def detect_intent(user_query: str) -> str:
-#     """
-#     Phân tích intent từ câu hỏi người dùng.
-#     (Bản đơn giản, có thể thay bằng ML/NLP)
-#     """
-#     query = user_query.lower()
-
-#     if re.search(r"doanh thu|thống kê|doanh số", query):
-#         return "get_revenue"
-#     elif re.search(r"so sánh", query):
-#         return "compare_revenue"
-#     elif re.search(r"top|cao nhất", query):
-#         return "list_top_branches"
-#     elif re.search(r"chi tiết", query):
-#         return "get_revenue_detail"
-#     else:
-#         return "unknown_intent"
-
 def detect_intent(user_query: str) -> str:
     result = extract_intent_and_entities(user_query)    
     result = result.get("intent")    
@@ -211,8 +193,11 @@ def extract_intent_and_entities(query: str):
             parsed = json.loads(result)
         else:
             parsed = result
-
+        
         entities = parsed.get("entities", {})
+        if not entities or not isinstance(entities, dict):
+            parsed["entities"] = {}
+            return parsed     
 
         # Lấy từ khóa thời gian nếu AI trả
         time_keyword = entities.get("revenue_start_date") or entities.get("revenue_end_date")
@@ -229,6 +214,31 @@ def extract_intent_and_entities(query: str):
         print("⚠️ Lỗi xử lý kết quả:", e)
         print("Kết quả gốc:", result)
         return {"error": str(e), "raw": result}
+
+def chatgpt_fallback(user_query: str) -> str:
+    """
+    Hàm fallback khi câu hỏi không nằm trong kịch bản doanh thu/chi phí/...,
+    hoặc khi AI không nhận diện được intent hợp lệ.
+    Tận dụng luôn llm đã khởi tạo ở đầu file.
+    """
+    try:
+        # Dùng chính llm đã khai báo sẵn ở đầu file
+        response = llm.invoke([
+            {
+                "role": "system",
+                "content": "Bạn là trợ lý AI thân thiện, giúp người dùng trả lời câu hỏi một cách rõ ràng, ngắn gọn và tự nhiên bằng tiếng Việt."
+            },
+            {
+                "role": "user",
+                "content": user_query
+            }
+        ])
+        # Nếu dùng ChatOpenAI, phản hồi là object -> lấy text
+        return response.content if hasattr(response, "content") else str(response)
+    except Exception as e:
+        print("⚠️ Lỗi khi gọi fallback:", e)
+        return "Xin lỗi, tôi chưa thể hiểu câu hỏi của bạn. Bạn có thể nói rõ hơn được không?"
+
 
 # ====== Test nhanh ======
 if __name__ == "__main__":

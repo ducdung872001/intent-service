@@ -1,10 +1,10 @@
 # pipeline/main_pipeline.py
-from pipeline.intent_detector import detect_intent, extract_intent_and_entities
+from pipeline.intent_detector import detect_intent, extract_intent_and_entities, chatgpt_fallback
 from pipeline.api_resolver import api_resolver
 from pipeline.parameter_extractor import extract_parameters
 from pipeline.param_checker import check_missing_params
 from pipeline.api_caller import call_api
-from pipeline.dialogue_manager import ask_user_for_missing, reply_user
+from pipeline.dialogue_manager import ask_user_for_missing, reply_user, get_bot_capabilities
 
 
 def run_pipeline(user_query: str):
@@ -21,6 +21,9 @@ def run_pipeline(user_query: str):
 
     # B2. Lấy cấu hình API
     api_config = api_resolver(intent)
+    if not api_config:
+        return chatgpt_fallback(user_query)
+    
     print(f"[API config] {api_config['url']}")
 
     # B3. Trích tham số

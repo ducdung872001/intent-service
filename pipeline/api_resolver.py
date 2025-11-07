@@ -20,9 +20,12 @@ def api_resolver(intent: str):
     registry = load_json(API_REGISTRY_PATH)
     hosts = load_json(SERVICE_HOSTS_PATH)
 
+    # Nếu intent chưa được khai báo trong registry thì phản hồi lại người dùng về năng lực của bot (Hỏi về Doanh thu | ...)
+    # thì sửa lại code dưới như nào (thay thế cho báo lỗi)
     api_info = registry.get(intent)
     if not api_info:
-        raise ValueError(f"Intent '{intent}' chưa được khai báo trong {API_REGISTRY_PATH}")
+        # raise ValueError(f"Intent '{intent}' chưa được khai báo trong {API_REGISTRY_PATH}")
+        return ""
 
     service = api_info.get("service")
     hostname = hosts.get(service)
