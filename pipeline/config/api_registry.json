@@ -1,0 +1,52 @@
+{
+  "get_revenue": {
+    "service": "finance",
+    "endpoint": "/api/revenue",
+    "method": "GET",
+    "required_params": [
+      "branch_name",
+      "revenue_start_date",
+      "revenue_end_date"
+    ],
+    "optional_params": ["currency"],
+    "response_type": "scalar",
+    "description": "Lấy tổng doanh thu trong khoảng thời gian."
+  },
+  "get_revenue_by_month": {
+    "service": "finance",
+    "endpoint": "/api/revenue/monthly",
+    "method": "GET",
+    "required_params": ["branch_name", "month", "year"],
+    "response_type": "scalar",
+    "description": "Lấy doanh thu của chi nhánh theo tháng."
+  },
+  "compare_revenue": {
+    "service": "finance",
+    "endpoint": "/api/revenue/compare",
+    "method": "GET",
+    "required_params": ["branch_name", "period_1", "period_2"],
+    "response_type": "object",
+    "description": "So sánh doanh thu giữa hai giai đoạn."
+  },
+  "list_top_branches": {
+    "service": "finance",
+    "endpoint": "/api/revenue/top",
+    "method": "GET",
+    "required_params": ["limit"],
+    "optional_params": ["month", "year"],
+    "response_type": "list",
+    "description": "Danh sách các chi nhánh có doanh thu cao nhất."
+  },
+  "get_revenue_detail": {
+    "service": "finance",
+    "endpoint": "/api/revenue/detail",
+    "method": "GET",
+    "required_params": [
+      "branch_name",
+      "revenue_start_date",
+      "revenue_end_date"
+    ],
+    "response_type": "object",
+    "description": "Chi tiết doanh thu theo ngày hoặc danh mục."
+  }
+}

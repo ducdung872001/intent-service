@@ -1,0 +1,90 @@
+{
+  "name": "revenue",
+  "description": "Bảng lưu thông tin doanh thu của các chi nhánh, theo sản phẩm, thời gian và kênh bán hàng.",
+  "fields": [
+    {
+      "name": "id",
+      "type": "integer",
+      "description": "Mã định danh duy nhất cho mỗi bản ghi doanh thu."
+    },
+    {
+      "name": "branch_id",
+      "type": "string",
+      "description": "Mã chi nhánh phát sinh doanh thu."
+    },
+    {
+      "name": "branch_name",
+      "type": "string",
+      "description": "Tên chi nhánh phát sinh doanh thu."
+    },
+    {
+      "name": "product_id",
+      "type": "string",
+      "description": "Mã sản phẩm hoặc dịch vụ được bán."
+    },
+    {
+      "name": "product_name",
+      "type": "string",
+      "description": "Tên sản phẩm hoặc dịch vụ được bán."
+    },
+    {
+      "name": "category",
+      "type": "string",
+      "description": "Danh mục sản phẩm hoặc loại dịch vụ."
+    },
+    {
+      "name": "channel",
+      "type": "string",
+      "description": "Kênh bán hàng: ví dụ 'Online', 'Offline', 'Agent', 'App'."
+    },
+    {
+      "name": "revenue_amount",
+      "type": "number",
+      "description": "Số tiền doanh thu (VNĐ)."
+    },
+    {
+      "name": "revenue_start_date",
+      "type": "string",
+      "format": "date",
+      "description": "Ngày bắt đầu ghi nhận doanh thu. Có thể là giá trị tự nhiên như 'ngày hôm nay', 'tuần này', 'tuần trước', 'tháng này', 'năm nay'. Khi xử lý trong Python dựa vào current_date:\n- 'ngày hôm nay' => current_date\n- 'tuần này' => Chủ nhật tuần hiện tại\n- 'tuần trước' => Chủ nhật tuần trước\n- 'tháng này' => ngày 01 của tháng hiện tại\n- 'năm nay' => 01/01 năm hiện tại\nTrả kết quả cuối cùng dưới định dạng YYYY-MM-DD."
+    },
+    {
+      "name": "revenue_end_date",
+      "type": "string",
+      "format": "date",
+      "description": "Ngày kết thúc ghi nhận doanh thu. Có thể là giá trị tự nhiên như 'ngày hôm nay', 'tuần này', 'tuần trước', 'tháng này', 'năm nay'. Khi xử lý trong Python dựa vào current_date:\n- 'ngày hôm nay' => current_date\n- 'tuần này' => current_date\n- 'tuần trước' => Thứ Bảy tuần trước\n- 'tháng này' => current_date\n- 'năm nay' => current_date\nTrả kết quả cuối cùng dưới định dạng YYYY-MM-DD."
+    },
+    {
+      "name": "created_at",
+      "type": "string",
+      "format": "date-time",
+      "description": "Thời điểm bản ghi được tạo."
+    },
+    {
+      "name": "updated_at",
+      "type": "string",
+      "format": "date-time",
+      "description": "Thời điểm bản ghi được cập nhật lần cuối."
+    }
+  ],
+  "examples": [
+    {
+      "branch_name": "Chi nhánh Hà Nội",
+      "product_name": "Gói Spa Relax 60 phút",
+      "category": "Dịch vụ Spa",
+      "channel": "Offline",
+      "revenue_amount": 15000000,
+      "revenue_start_date": "2025-10-31",
+      "revenue_end_date": "2025-10-31"
+    },
+    {
+      "branch_name": "Chi nhánh TP.HCM",
+      "product_name": "Gói Chăm sóc da cao cấp",
+      "category": "Dịch vụ Spa",
+      "channel": "Online",
+      "revenue_amount": 23000000,
+      "revenue_start_date": "2025-10-31",
+      "revenue_end_date": "2025-10-31"
+    }
+  ]
+}

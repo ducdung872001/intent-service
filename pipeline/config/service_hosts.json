@@ -1,0 +1,5 @@
+{
+  "finance": "https://finance.api.company.com",
+  "report": "https://report.api.company.com",
+  "hr": "https://hr.api.company.com"
+}
