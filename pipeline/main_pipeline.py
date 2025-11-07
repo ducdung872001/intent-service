@@ -6,38 +6,62 @@ from pipeline.param_checker import check_missing_params
 from pipeline.api_caller import call_api
 from pipeline.dialogue_manager import ask_user_for_missing, reply_user, get_bot_capabilities
 
+# Biến nhớ context (tạm, bạn có thể thay bằng redis hoặc session id)
+conversation_context = {}
 
-def run_pipeline(user_query: str):
-    """
-    Pipeline chính: từ câu hỏi user → gọi API → trả kết quả
-    """
+def run_pipeline(user_query: str, session_id: str = "default"):
     print(f"[User query] {user_query}")
 
-    # B1. Xác định intent
-    intent_and_params = extract_intent_and_entities(user_query)
-    # intent = detect_intent(user_query)
-    intent = intent_and_params.get("intent")
-    print(f"[Intent] {intent}")
+    # === Lấy hoặc khởi tạo context ===
+    context = conversation_context.get(session_id, {"intent": None, "entities": {}})
 
-    # B2. Lấy cấu hình API
-    api_config = api_resolver(intent)
+    # === Phân tích intent và entity từ câu hỏi mới ===
+    intent_and_params = extract_intent_and_entities(user_query)
+    detected_intent = intent_and_params.get("intent")
+    detected_entities = intent_and_params.get("entities", {})
+
+    print(f"👉 Detected intent: {detected_intent}")
+    print(f"👉 Context intent: {context.get('intent')}")
+
+    # === Quy tắc xác định intent ===
+    if context.get("intent") and detected_intent and detected_intent != context["intent"]:
+        # So sánh xem user có đang hỏi ý định khác hẳn không
+        # Nếu câu chứa từ khóa "doanh thu", "chi phí", "so sánh" ... khác intent cũ -> reset
+        if any(kw in user_query.lower() for kw in ["doanh thu", "chi phí", "so sánh", "thống kê", "tổng hợp"]):
+            print("🔄 Intent thực sự khác, reset context.")
+            context = {"intent": detected_intent, "entities": {}}
+        else:
+            # Nếu không có dấu hiệu hỏi mới -> coi là bổ sung entity
+            print("➕ Chỉ bổ sung thông tin, giữ intent cũ.")
+            detected_intent = context["intent"]
+
+    elif not detected_intent:
+        # Nếu AI không phát hiện intent -> dùng intent trước
+        detected_intent = context.get("intent")
+
+    # Nếu vẫn không có intent nào xác định được
+    if not detected_intent:
+        return chatgpt_fallback(user_query)
+
+    # === Cập nhật intent và entity vào context ===
+    context["intent"] = detected_intent
+    if detected_entities:
+        # Chỉ update các entity có giá trị thực (loại bỏ None hoặc "")
+        context["entities"].update({k: v for k, v in detected_entities.items() if v})
+
+    print(f"[🧠 Context sau merge] {context['entities']}")
+
+    # === Lấy config và kiểm tra tham số ===
+    api_config = api_resolver(detected_intent)
     if not api_config:
         return chatgpt_fallback(user_query)
-    
-    print(f"[API config] {api_config['url']}")
 
-    # B3. Trích tham số
-    # params = extract_parameters(user_query, api_config)
-    params = intent_and_params.get("entities");
-    print(f"[Parameters] {params}")
-
-    # B4. Kiểm tra thiếu
-    missing = check_missing_params(api_config, params)
+    missing = check_missing_params(api_config, context["entities"])
     if missing:
+        conversation_context[session_id] = context
         return ask_user_for_missing(missing)
 
-    # B5. Gọi API
-    result = call_api(api_config, params)
-
-    # B6. Trả lời user
+    # === Đủ tham số => gọi API ===
+    result = call_api(api_config, context["entities"])
+    conversation_context.pop(session_id, None)
     return reply_user(result)

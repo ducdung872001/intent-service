@@ -30,7 +30,8 @@ def api_resolver(intent: str):
     service = api_info.get("service")
     hostname = hosts.get(service)
     if not hostname:
-        raise ValueError(f"Service '{service}' chưa có hostname trong {SERVICE_HOSTS_PATH}")
+        # raise ValueError(f"Service '{service}' chưa có hostname trong {SERVICE_HOSTS_PATH}")
+        return ""
 
     full_url = f"{hostname.rstrip('/')}/{api_info['endpoint'].lstrip('/')}"
     api_info["url"] = full_url
