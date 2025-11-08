@@ -5,8 +5,8 @@
     "method": "GET",
     "required_params": [
       "branch_name",
-      "revenue_start_date",
-      "revenue_end_date"
+      "start_date",
+      "end_date"
     ],
     "optional_params": ["currency"],
     "response_type": "scalar",
