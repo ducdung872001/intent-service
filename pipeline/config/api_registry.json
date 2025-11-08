@@ -1,16 +1,18 @@
 {
   "get_revenue": {
     "service": "finance",
-    "endpoint": "/api/revenue",
+    "endpoint": "/revenue/total_revenue_customer",
     "method": "GET",
     "required_params": [
-      "branch_name",
-      "start_date",
-      "end_date"
-    ],
-    "optional_params": ["currency"],
+      "phone",
+      "email",
+      "code",
+      "name",
+      "fromTime",
+      "toTime"
+    ],    
     "response_type": "scalar",
-    "description": "Lấy tổng doanh thu trong khoảng thời gian."
+    "description": "Lấy tổng doanh thu trong khoảng thời gian của khách hàng hoặc đối tác"
   },
   "get_revenue_by_month": {
     "service": "finance",
