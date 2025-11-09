@@ -75,7 +75,7 @@ def get_bot_capabilities():
     )
     
     for key, desc in capabilities.items():
-        intro += f"• **{key.replace('_', ' ').title()}**: {desc}\n"
+        intro += f"• {key.replace('_', ' ').title()}: {desc}\n"
 
     outro = (
         "\nBạn có thể hỏi ví dụ như:\n"
