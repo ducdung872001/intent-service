@@ -22,7 +22,7 @@ response_schemas = [
         name="intent",
         description=(
             "Ý định của người dùng. Có thể là một trong các loại sau:\n"
-            "- get_revenue: lấy doanh thu tổng quát.\n"
+            "- get_capacity: người dùng hỏi về năng lực của bot/khả năng của bot làm được những gì.\n"
             "- get_revenue_by_customer: lấy doanh thu theo khách hàng.\n"
             "- get_revenue_by_contract: lấy doanh thu theo hợp đồng.\n"
             "- get_debt_by_customer: lấy số tiền khách hàng còn nợ, lấy công nợ của khách hàng.\n"

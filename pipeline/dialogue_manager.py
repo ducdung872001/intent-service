@@ -4,8 +4,8 @@ def ask_user_for_missing(missing: list) -> str:
     """
     prompts = {
         "branch_name": "Bạn muốn xem chi nhánh nào?",
-        "revenue_start_date": "Khoảng thời gian bắt đầu là khi nào?",
-        "revenue_end_date": "Khoảng thời gian kết thúc là khi nào?",
+        "start_date": "Khoảng thời gian bắt đầu là khi nào?",
+        "end_date": "Khoảng thời gian kết thúc là khi nào?",
         "month": "Tháng nào bạn muốn xem?",
         "year": "Năm nào bạn muốn xem?"
     }

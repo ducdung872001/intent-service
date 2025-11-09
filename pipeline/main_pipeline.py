@@ -20,6 +20,9 @@ def run_pipeline(user_query: str, session_id: str = "default", token: str = None
     detected_intent = intent_and_params.get("intent")
     detected_entities = intent_and_params.get("entities", {})
 
+    if detected_intent == 'get_capacity':
+        return get_bot_capabilities()
+
     print(f"👉 Detected intent: {detected_intent}")
     print(f"👉 Context intent: {context.get('intent')}")
 
