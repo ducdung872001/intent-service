@@ -18,7 +18,18 @@ with open("schemas/revenue_schema.json", "r", encoding="utf-8") as f:
 
 # ====== Response schema ======
 response_schemas = [
-    ResponseSchema(name="intent", description="Ý định của người dùng, ví dụ: get_revenue, compare_branch, ..."),
+    ResponseSchema(
+        name="intent",
+        description=(
+            "Ý định của người dùng. Có thể là một trong các loại sau:\n"
+            "- get_revenue: lấy doanh thu tổng quát.\n"
+            "- get_revenue_by_customer: lấy doanh thu theo khách hàng.\n"
+            "- get_revenue_by_contract: lấy doanh thu theo hợp đồng.\n"
+            "- get_debt_by_customer: lấy số tiền khách hàng còn nợ, lấy công nợ của khách hàng.\n"
+            "- get_debt_by_contract: lấy số tiền hợp đồng còn nợ, lấy công nợ của hợp đồng.\n"            
+            "Nếu không chắc chắn, chọn intent gần nhất có thể."
+        )
+    ),
     ResponseSchema(
         name="entities",
         description=f"Các trường liên quan đến {schema_data['name']}, bao gồm: {', '.join(f['name'] for f in schema_data['fields'])}"
@@ -37,6 +48,8 @@ Truy vấn: {query}
 {format_instructions}
 
 Yêu cầu:
+- Xác định intent chính xác nhất dựa vào loại thông tin mà người dùng muốn truy vấn.
+- Nếu người dùng đề cập tới 'hợp đồng', 'khách hàng', 'chi nhánh', ... hãy phân loại intent tương ứng.
 - Chỉ trích xuất intent và entities theo schema.
 - Không tính toán ngày, không giải thích gì.
 - Nếu trong query có từ khóa thời gian, chỉ trả nguyên từ khóa trong entities (ví dụ 'hôm nay', 'tuần trước', ...).

@@ -1,5 +1,5 @@
 {
-  "get_revenue": {
+  "get_revenue_by_customer": {
     "service": "finance",
     "endpoint": "/revenue/total_revenue_customer",
     "method": "POST",
@@ -10,21 +10,36 @@
     "response_type": "scalar",
     "description": "Lấy tổng doanh thu trong khoảng thời gian của khách hàng hoặc đối tác"
   },
-  "get_revenue_by_month": {
+  "get_revenue_by_contract": {
     "service": "finance",
-    "endpoint": "/api/revenue/monthly",
-    "method": "GET",
-    "required_params": ["branch_name", "month", "year"],
+    "endpoint": "/revenue/total_revenue_contract",
+    "method": "POST",
+    "required_params": ["fromTime", "toTime"],
+    "at_least_one": ["contractNo", "contractName"],    
+    "result_field": "reply",
     "response_type": "scalar",
-    "description": "Lấy doanh thu của chi nhánh theo tháng."
+    "description": "Lấy tổng doanh thu trong khoảng thời gian của hợp đồng"
   },
-  "compare_revenue": {
+  "get_debt_by_customer": {
     "service": "finance",
-    "endpoint": "/api/revenue/compare",
-    "method": "GET",
-    "required_params": ["branch_name", "period_1", "period_2"],
-    "response_type": "object",
-    "description": "So sánh doanh thu giữa hai giai đoạn."
+    "endpoint": "/revenue/total_debt_customer",
+    "method": "POST",
+    "required_params": ["fromTime", "toTime"],
+    "at_least_one": ["phone", "email", "code"],
+    "optional_params": ["name"],
+    "result_field": "reply",
+    "response_type": "scalar",
+    "description": "Lấy tổng công nợ khách hàng hoặc đối tác trong khoảng thời gian"
+  },
+  "get_debt_by_contract": {
+    "service": "finance",
+    "endpoint": "/revenue/total_debt_contract",
+    "method": "POST",
+    "required_params": ["fromTime", "toTime"],
+    "at_least_one": ["contractNo", "contractName"],    
+    "result_field": "reply",
+    "response_type": "scalar",
+    "description": "Lấy công nợ trong khoảng thời gian của hợp đồng"
   },
   "list_top_branches": {
     "service": "finance",

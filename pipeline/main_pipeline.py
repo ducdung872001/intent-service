@@ -52,10 +52,12 @@ def run_pipeline(user_query: str, session_id: str = "default", token: str = None
     print(f"[🧠 Context sau merge] {context['entities']}")
 
     # === Lấy config và kiểm tra tham số ===
+    print('ok ->', detected_intent)
+    
     api_config = api_resolver(detected_intent)
     if not api_config:
         return chatgpt_fallback(user_query)
-
+    
     missing = check_missing_params(api_config, context["entities"])
     if missing:
         conversation_context[session_id] = context

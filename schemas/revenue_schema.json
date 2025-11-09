@@ -23,6 +23,16 @@
       "description": "Tên của khách hàng cần xem doanh thu."
     },
     {
+      "name": "contractName",
+      "type": "string",
+      "description": "Tên hợp đồng."
+    },
+    {
+      "name": "contractNo",
+      "type": "string",
+      "description": "Số hợp đồng."
+    },
+    {
       "name": "product_id",
       "type": "string",
       "description": "Mã sản phẩm hoặc dịch vụ được bán."
