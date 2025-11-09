@@ -6,6 +6,7 @@
     "required_params": ["fromTime", "toTime"],
     "at_least_one": ["phone", "email", "code"],
     "optional_params": ["name"],
+    "result_field": "reply",
     "response_type": "scalar",
     "description": "Lấy tổng doanh thu trong khoảng thời gian của khách hàng hoặc đối tác"
   },

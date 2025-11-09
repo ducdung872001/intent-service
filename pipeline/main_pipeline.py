@@ -62,8 +62,7 @@ def run_pipeline(user_query: str, session_id: str = "default", token: str = None
         return ask_user_for_missing(missing)
 
     # === Đủ tham số => gọi API ===
-    result = call_api(api_config, context["entities"], token=token)
-    print(result)
+    result = call_api(api_config, context["entities"], token=token)    
     
     conversation_context.pop(session_id, None)
-    return reply_user(result)
+    return reply_user(result, api_config=api_config)

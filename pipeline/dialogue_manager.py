@@ -14,19 +14,45 @@ def ask_user_for_missing(missing: list) -> str:
     return "Xin bổ sung: " + ", ".join(missing_questions)
 
 
-def reply_user(result) -> str:
+def reply_user(api_response: dict, api_config: dict) -> str:
     """
-    Tạo phản hồi tự nhiên cho người dùng.
+    Tạo phản hồi tự nhiên cho người dùng từ API response dựa trên luật trong api_config.
     """
-    if isinstance(result, (int, float)):
-        return f"✅ Doanh thu là khoảng {result:,} VND."
-    elif isinstance(result, dict):
-        items = [f"{k}: {v:,} VND" for k, v in result.items()]
-        return "📊 Chi tiết doanh thu:\n" + "\n".join(items)
-    elif isinstance(result, list):
-        return "🏢 Top chi nhánh có doanh thu cao nhất:\n- " + "\n- ".join(result)
-    else:
+    print('dung')
+    print(api_response)
+    
+    if not isinstance(api_response, dict):
         return "Tôi chưa hiểu rõ kết quả từ API."
+
+    result = api_response.get("result")
+    if not result:
+        return "API không trả về dữ liệu."
+
+    # Lấy field theo config
+    result_field = api_config.get("result_field")
+    print(result_field)
+    
+    if result_field and result_field in result:
+        value = result[result_field]
+        if value is not None:
+            return str(value)
+
+    # Fallback: xử lý theo kiểu dữ liệu
+    if isinstance(result, (int, float)):
+        # return f"✅ Kết quả là: {result:,} VND."
+        return f"{result}"
+    elif isinstance(result, dict):
+        items = []
+        for k, v in result.items():
+            if isinstance(v, (int, float)):
+                items.append(f"{k}: {v:,} VND")
+            else:
+                items.append(f"{k}: {v}")
+        return "📊 Chi tiết:\n" + "\n".join(items)
+    elif isinstance(result, list):
+        return "🏢 Danh sách:\n- " + "\n- ".join(map(str, result))
+
+    return "Tôi chưa hiểu rõ kết quả từ API."
     
 # bot_capabilities.py
 def get_bot_capabilities():

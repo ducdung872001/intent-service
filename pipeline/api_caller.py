@@ -60,7 +60,7 @@ def call_api(api_config: dict, params: dict, token: str = None):
         print('data:', data)
 
         if response_type == "scalar":
-            return data.get("value") if isinstance(data, dict) else data
+            return data
         elif response_type in ("object", "list"):
             return data
         else:
