@@ -27,10 +27,7 @@ async def get_detect(request: Request):
         token = auth_header.split(" ")[1]
     
     response = run_pipeline(query, token=token)
+    print('XZS')
+    print(response)
     # return {"query": query, "result": response}
     return response
-
-if __name__ == "__main__":
-    query = "Thống kê doanh thu quý 3 năm nay của chi nhánh Thái Hà"
-    response = run_pipeline(query)
-    print("\n[Bot]:", response)
