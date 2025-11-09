@@ -70,7 +70,7 @@ def get_bot_capabilities():
     }
 
     intro = (
-        "Xin chào 👋 Tôi là trợ lý phân tích dữ liệu kinh doanh. "
+        "Xin chào! Tôi là trợ lý phân tích dữ liệu kinh doanh. "
         "Tôi có thể giúp bạn tra cứu nhanh các thông tin như:\n"
     )
     

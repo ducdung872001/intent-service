@@ -26,8 +26,6 @@ async def get_detect(request: Request):
     if auth_header and auth_header.startswith("Bearer "):
         token = auth_header.split(" ")[1]
     
-    response = run_pipeline(query, token=token)
-    print('XZS')
-    print(response)
+    response = run_pipeline(query, token=token)    
     # return {"query": query, "result": response}
     return response
