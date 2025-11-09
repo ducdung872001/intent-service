@@ -200,12 +200,12 @@ def extract_intent_and_entities(query: str):
             return parsed     
 
         # Lấy từ khóa thời gian nếu AI trả
-        time_keyword = entities.get("revenue_start_date") or entities.get("revenue_end_date")
+        time_keyword = entities.get("fromTime") or entities.get("toTime")
 
         # Tính ngày chính xác
-        revenue_start_date, revenue_end_date = compute_revenue_dates(time_keyword, now)
-        entities["revenue_start_date"] = revenue_start_date.strftime("%Y-%m-%d")
-        entities["revenue_end_date"] = revenue_end_date.strftime("%Y-%m-%d")
+        start_date, end_date = compute_revenue_dates(time_keyword, now)
+        entities["fromTime"] = start_date.strftime("%Y-%m-%d")
+        entities["toTime"] = end_date.strftime("%Y-%m-%d")
 
         parsed["entities"] = entities
         return parsed

@@ -1,21 +1,26 @@
 {
   "name": "revenue",
   "description": "Bảng lưu thông tin doanh thu của các chi nhánh, theo sản phẩm, thời gian và kênh bán hàng.",
-  "fields": [
+  "fields": [    
     {
-      "name": "id",
-      "type": "integer",
-      "description": "Mã định danh duy nhất cho mỗi bản ghi doanh thu."
+      "name": "code",
+      "type": "string",
+      "description": "Mã khách hàng cần xem doanh thu."
     },
     {
-      "name": "branch_id",
+      "name": "phone",
       "type": "string",
-      "description": "Mã chi nhánh phát sinh doanh thu."
+      "description": "Số điện thoại khách hàng cần xem doanh thu."
     },
     {
-      "name": "branch_name",
+      "name": "email",
       "type": "string",
-      "description": "Tên chi nhánh phát sinh doanh thu."
+      "description": "Địa chỉ email của khách hàng cần xem doanh thu."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Tên của khách hàng cần xem doanh thu."
     },
     {
       "name": "product_id",
@@ -43,13 +48,13 @@
       "description": "Số tiền doanh thu (VNĐ)."
     },
     {
-      "name": "revenue_start_date",
+      "name": "fromTime",
       "type": "string",
       "format": "date",
       "description": "Ngày bắt đầu ghi nhận doanh thu. Có thể là giá trị tự nhiên như 'ngày hôm nay', 'tuần này', 'tuần trước', 'tháng này', 'năm nay'. Khi xử lý trong Python dựa vào current_date:\n- 'ngày hôm nay' => current_date\n- 'tuần này' => Chủ nhật tuần hiện tại\n- 'tuần trước' => Chủ nhật tuần trước\n- 'tháng này' => ngày 01 của tháng hiện tại\n- 'năm nay' => 01/01 năm hiện tại\nTrả kết quả cuối cùng dưới định dạng YYYY-MM-DD."
     },
     {
-      "name": "revenue_end_date",
+      "name": "toTime",
       "type": "string",
       "format": "date",
       "description": "Ngày kết thúc ghi nhận doanh thu. Có thể là giá trị tự nhiên như 'ngày hôm nay', 'tuần này', 'tuần trước', 'tháng này', 'năm nay'. Khi xử lý trong Python dựa vào current_date:\n- 'ngày hôm nay' => current_date\n- 'tuần này' => current_date\n- 'tuần trước' => Thứ Bảy tuần trước\n- 'tháng này' => current_date\n- 'năm nay' => current_date\nTrả kết quả cuối cùng dưới định dạng YYYY-MM-DD."

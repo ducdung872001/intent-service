@@ -9,7 +9,7 @@ from pipeline.dialogue_manager import ask_user_for_missing, reply_user, get_bot_
 # Biến nhớ context (tạm, bạn có thể thay bằng redis hoặc session id)
 conversation_context = {}
 
-def run_pipeline(user_query: str, session_id: str = "default"):
+def run_pipeline(user_query: str, session_id: str = "default", token: str = None):
     print(f"[User query] {user_query}")
 
     # === Lấy hoặc khởi tạo context ===
@@ -62,6 +62,8 @@ def run_pipeline(user_query: str, session_id: str = "default"):
         return ask_user_for_missing(missing)
 
     # === Đủ tham số => gọi API ===
-    result = call_api(api_config, context["entities"])
+    result = call_api(api_config, context["entities"], token=token)
+    print(result)
+    
     conversation_context.pop(session_id, None)
     return reply_user(result)

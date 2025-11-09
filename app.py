@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from pipeline.intent_detector import extract_intent_and_entities
 from pipeline.main_pipeline import run_pipeline
 
@@ -15,9 +15,17 @@ def ping():
     return {"message": "pong"}
 
 @app.post("/detect")
-async def get_detect(payload: dict):    
-    query = payload.get("query")
-    response = run_pipeline(query)
+async def get_detect(request: Request):    
+    body = await request.json()
+    query = body.get("query")
+    
+    # 🟩 lấy token từ header Authorization
+    auth_header = request.headers.get("Authorization")
+    token = None
+    if auth_header and auth_header.startswith("Bearer "):
+        token = auth_header.split(" ")[1]
+    
+    response = run_pipeline(query, token=token)
     return {"query": query, "result": response}
 
 if __name__ == "__main__":

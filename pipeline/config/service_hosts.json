@@ -1,5 +1,5 @@
 {
-  "finance": "https://cloud.reborn.vn/adminapi",
-  "report": "https://report.api.company.com",
+  "finance": "http://localhost:9100/adminapi",
+  "report": "https://cloud.reborn.vn/adminapi",
   "hr": "https://hr.api.company.com"
 }

@@ -2,15 +2,10 @@
   "get_revenue": {
     "service": "finance",
     "endpoint": "/revenue/total_revenue_customer",
-    "method": "GET",
-    "required_params": [
-      "phone",
-      "email",
-      "code",
-      "name",
-      "fromTime",
-      "toTime"
-    ],    
+    "method": "POST",
+    "required_params": ["fromTime", "toTime"],
+    "at_least_one": ["phone", "email", "code"],
+    "optional_params": ["name"],
     "response_type": "scalar",
     "description": "Lấy tổng doanh thu trong khoảng thời gian của khách hàng hoặc đối tác"
   },
@@ -45,8 +40,8 @@
     "method": "GET",
     "required_params": [
       "branch_name",
-      "revenue_start_date",
-      "revenue_end_date"
+      "start_date",
+      "end_date"
     ],
     "response_type": "object",
     "description": "Chi tiết doanh thu theo ngày hoặc danh mục."
