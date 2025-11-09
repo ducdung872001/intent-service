@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Request
+from fastapi.responses import PlainTextResponse
 from pipeline.intent_detector import extract_intent_and_entities
 from pipeline.main_pipeline import run_pipeline
 
@@ -14,7 +15,7 @@ async def get_intent(payload: dict):
 def ping():
     return {"message": "pong"}
 
-@app.post("/detect")
+@app.post("/detect", response_class=PlainTextResponse)
 async def get_detect(request: Request):    
     body = await request.json()
     query = body.get("query")
