@@ -27,7 +27,7 @@ response_schemas = [
             "- get_revenue_by_contract: lấy doanh thu theo hợp đồng.\n"
             "- get_debt_by_customer: lấy số tiền khách hàng còn nợ, lấy công nợ của khách hàng.\n"
             "- get_debt_by_contract: lấy số tiền hợp đồng còn nợ, lấy công nợ của hợp đồng.\n"            
-            "Nếu không chắc chắn, chọn intent gần nhất có thể."
+            "Nếu không chắc chắn, hãy tự quyết định hoặc trả về 'unknown'."
         )
     ),
     ResponseSchema(
