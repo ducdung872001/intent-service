@@ -40,7 +40,7 @@ def reply_user(api_response: dict, api_config: dict) -> str:
     # Fallback: xử lý theo kiểu dữ liệu
     if isinstance(result, (int, float)):
         # return f"✅ Kết quả là: {result:,} VND."
-        return f"{result}"
+        return result
     elif isinstance(result, dict):
         items = []
         for k, v in result.items():
