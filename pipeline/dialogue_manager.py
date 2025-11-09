@@ -60,13 +60,13 @@ def get_bot_capabilities():
     Trả về năng lực mà bot có thể hỗ trợ người dùng.
     """
     capabilities = {
-        "doanh_thu": "Tra cứu doanh thu theo ngày, tháng, quý, năm hoặc theo chi nhánh.",
-        "chi_phi": "Theo dõi chi phí vận hành, chi phí marketing, nhân sự, ...",
-        "loi_nhuan": "Tính toán lợi nhuận gộp hoặc ròng theo kỳ.",
-        "kpi": "Theo dõi KPI nhân viên, bộ phận, hoặc toàn công ty.",
-        "khach_hang": "Thống kê số lượng khách hàng mới, quay lại, hoặc theo phân khúc.",
-        "so_sanh": "So sánh hiệu suất giữa các kỳ hoặc giữa các chi nhánh.",
-        "du_bao": "Dự báo doanh thu hoặc chi phí dựa trên dữ liệu lịch sử."
+        "Doanh_Thu": "Tra cứu doanh thu theo ngày, tháng, quý, năm hoặc theo chi nhánh.",
+        "Chi_Phí": "Theo dõi chi phí vận hành, chi phí marketing, nhân sự, ...",
+        "Lợi_Nhuận": "Tính toán lợi nhuận gộp hoặc ròng theo kỳ.",
+        "Kpi": "Theo dõi KPI nhân viên, bộ phận, hoặc toàn công ty.",
+        "Khách_Hàng": "Thống kê số lượng khách hàng mới, quay lại, hoặc theo phân khúc.",
+        "So_Sánh": "So sánh hiệu suất giữa các kỳ hoặc giữa các chi nhánh.",
+        "Dự_Báo": "Dự báo doanh thu hoặc chi phí dựa trên dữ liệu lịch sử."
     }
 
     intro = (
